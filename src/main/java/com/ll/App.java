@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 class App {
     void run() {
+        System.out.println("== 명언 앱 ==");
+
         while (true) {
-            System.out.println("== 명언 앱 ==");
             System.out.print("명령) ");
 
             Scanner scanner = new Scanner(System.in);
@@ -15,7 +16,12 @@ class App {
             if (cmd.equals("종료")){
                 break;
             }
-            System.out.printf("입력받은 명령어 : %s\n", cmd);
+            else if (cmd.equals("등록")){
+                System.out.print("명언 : ");
+                String content = scanner.nextLine();
+                System.out.print("작가 : ");
+                String authorName = scanner.nextLine();
+            }
         }
     }
 }
