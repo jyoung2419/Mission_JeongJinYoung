@@ -18,13 +18,15 @@ class App {
             if (sc.equals("종료")) {
                 break;
             } else if (sc.equals("등록")) {
-                action();
+                write();
             } else if(sc.equals("목록")){
                 list();
+            } else if(sc.startsWith("삭제?id=")){
+                remove(sc);
             }
         }
     }
-    void action(){
+    void write(){
         System.out.print("명언 : ");
         String content = scanner.nextLine();
         System.out.print("작가 : ");
@@ -46,5 +48,29 @@ class App {
             Quotation quotation = quotationList.get(i);
             System.out.printf("%d / %s / %s\n", quotation.id, quotation.authorName, quotation.content);
         }
+    }
+
+    void remove(String sc) {
+        String[] scBits = sc.split("\\?");
+        String idParam = scBits[1];
+        String[] idParamBits = idParam.split("=");
+        try
+        {
+            int id = Integer.parseInt(idParamBits[1]);
+            if (id > 0 && id <= quotationList.size())
+            {
+                Quotation check = quotationList.get(id - 1);
+                if (id == check.id && quotationList.get(id - 1).authorName != null)
+                {
+                    System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
+                    quotationList.get(id - 1).id = id;
+                    quotationList.get(id - 1).authorName = null;
+                    quotationList.get(id - 1).content = null;
+                } else
+                {
+                    System.out.printf("%d번 명언이 존재하지 않습니다.\n", id);
+                }
+            }
+        } catch(NumberFormatException e){}
     }
 }
